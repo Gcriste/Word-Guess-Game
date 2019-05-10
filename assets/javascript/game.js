@@ -14,13 +14,9 @@ var guessesLeft = 10;
 var gameStart = false;
 var answer = [];
 var firstTime = true;
+var wrongGuess="";
 
-directions.textContent = "Press any key to start the game!";
-currentWord.textContent = "Current Word: ";
-guessedLetters.textContent = "Letters Guessed: ";
-remainingGuesses.textContent = "Remaining Guesses: ";
-wins.textContent = "Wins: ";
-losses.textContent = "Losses: ";
+
 
 
 var word = wordBank[Math.floor(Math.random()*wordBank.length)];
@@ -28,7 +24,18 @@ var word = wordBank[Math.floor(Math.random()*wordBank.length)];
 //set up the word after user hits any key
 
 
-
+function btnFunction() {
+    document.getElementById("button").innerHTML = "Guess a letter to start the Game!"
+    currentWord.textContent = "Current Word: ";
+    guessedLetters.textContent = "Letters Guessed: ";
+    remainingGuesses.textContent = "Remaining Guesses: ";
+    wins.textContent = "Wins: ";
+    losses.textContent = "Losses: ";
+    for(var j = 0; j < word.length; j++)
+    if (firstTime) {
+        answer[j] = "_ "; 
+  }
+};
 
 
 
@@ -36,6 +43,9 @@ var word = wordBank[Math.floor(Math.random()*wordBank.length)];
 document.onkeyup = function(event) {
     gameStart = true;
 
+    Wrong();
+    win();
+    Loss();
     
     var yourGuess = event.key
     remainingGuesses.textContent = "Remaining Guesses: " + guessesLeft;
@@ -46,48 +56,46 @@ document.onkeyup = function(event) {
     for(var i = 0; i < word.length; i++) {
         if (word[i] === yourGuess){
             answer[i] = yourGuess;
-             
+               
         }
-        else if(answer[i]!=yourGuess || word[i]!=yourGuess ){
-            guessesLeft-=1;
-
+        else if( answer[i]!= yourGuess) {
+           wrongGuess= yourGuess
+           
+           
+            
         };
-        if (firstTime) {
-            answer[i] = "_ ";  
-          
-        };
-
-       
-
 
     };
 
-    firstTime=false;
-    currentWord.textContent = "Current Word: " + answer;
-   
-    win();
-    Loss();
-            
+    if (wrongGuess = yourGuess){;
+        guessesLeft--}
 
-           // guessesLeft-=1;
+    firstTime=false;
+    currentWord.textContent = "Current Word: " + answer.join("");
+   
+
+}
+
+function Wrong(){
+
+    guessedLetters.textContent = "Letters Guessed: " + wrongGuess;
+   
 };
-    //else if (word[j] != yourGuess){
-           // answer[j] != yourGuess;
-            //guessedLetters = guessedLetters + yourGuess;
-    function wron  
+
 
             
 function win(){
 
-    if (answer.indexOf("_") ===-1){
+    if (guessesLeft >=0 &&  answer.indexOf(word)){
         winNum++;
         wins.textContent = "wins"
-    }
-}
+    };
+};
 
 function Loss(){
 
     if (guessesLeft <= 0){
         loseNum++;
-    }
+    };
 };
+
