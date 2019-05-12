@@ -1,5 +1,5 @@
 
-var wordBank = ["bootcamp", "vanderbilt", "coding", "hangman", "trilogy" ];
+var wordBank = ["catdog ", "rugrats", "doug", "keenan&kel" , "all_that", "animorphs", "spongebob"];
 
 
 var directions = document.getElementById("directions-text");
@@ -25,7 +25,7 @@ var word = wordBank[Math.floor(Math.random()*wordBank.length)];
 
 
 function reset() {
-    document.getElementById("button").innerHTML = "Guess a letter to start the Game!"
+    document.getElementById("button").innerHTML = "Guess a letter of a 90s Nickolodeon TV show to start the Game!"
     currentWord.textContent = "Current Word: ";
     guessedLetters.textContent = "Letters Guessed: ";
     remainingGuesses.textContent = "Remaining Guesses: ";
