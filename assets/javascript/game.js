@@ -14,7 +14,7 @@ var guessesLeft = 10;
 var gameStart = false;
 var answer = [];
 var firstTime = true;
-var wrongGuess="";
+var wrongGuess=[];
 
 
 
@@ -24,7 +24,7 @@ var word = wordBank[Math.floor(Math.random()*wordBank.length)];
 //set up the word after user hits any key
 
 
-function btnFunction() {
+function reset() {
     document.getElementById("button").innerHTML = "Guess a letter to start the Game!"
     currentWord.textContent = "Current Word: ";
     guessedLetters.textContent = "Letters Guessed: ";
@@ -37,14 +37,33 @@ function btnFunction() {
   }
 };
 
+function Wrong(){
+    console.log(wrongGuess)
+    guessedLetters.textContent = "Letters Guessed: " + wrongGuess;
+   
+};
+      
+function win(){ 
+    if (answer ===word)
+    answer.toString("");
+        winNum++;
+        wins.textContent = "wins" + winNum;
+        reset();
+    };
+
+function Loss(){
+
+    if (guessesLeft <= 0){
+        loseNum++;
+        reset();
+    };
+};
 
 
 
 document.onkeyup = function(event) {
     gameStart = true;
 
-    Wrong();
-    win();
     Loss();
     
     var yourGuess = event.key
@@ -55,47 +74,26 @@ document.onkeyup = function(event) {
     
     for(var i = 0; i < word.length; i++) {
         if (word[i] === yourGuess){
-            answer[i] = yourGuess;
-               
+            answer[i] = yourGuess;      
         }
-        else if( answer[i]!= yourGuess) {
-           wrongGuess= yourGuess
-           
-           
-            
-        };
+       
 
+        else if (answer===word) {
+              win();
+            };
     };
 
-    if (wrongGuess = yourGuess){;
-        guessesLeft--}
+    if( answer[i]!== yourGuess) {
+        wrongGuess= yourGuess
+        console.log(yourGuess)
+     }
+    if (wrongGuess === yourGuess){
+        guessesLeft--;
+        Wrong();
 
     firstTime=false;
     currentWord.textContent = "Current Word: " + answer.join("");
    
-
-}
-
-function Wrong(){
-
-    guessedLetters.textContent = "Letters Guessed: " + wrongGuess;
-   
-};
-
-
-            
-function win(){
-
-    if (guessesLeft >=0 &&  answer.indexOf(word)){
-        winNum++;
-        wins.textContent = "wins"
     };
+
 };
-
-function Loss(){
-
-    if (guessesLeft <= 0){
-        loseNum++;
-    };
-};
-
