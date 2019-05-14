@@ -10,90 +10,115 @@ var wins = document.getElementById("wins");
 var winNum = 0;
 var loseNum = 0;
 var losses = document.getElementById("losses");
-var guessesLeft = 10;
+var guessesLeft = 9;
 var gameStart = false;
 var answer = [];
+var word = "";
+var blanks = [];
 var firstTime = true;
 var wrongGuess=[];
+var letterGuessed = "";
+var numBlanks = 0;
 
 
 
-
-var word = wordBank[Math.floor(Math.random()*wordBank.length)];
-    console.log(word)
 //set up the word after user hits any key
 
 
 function reset() {
     document.getElementById("button").innerHTML = "Guess a letter of a 90s Nickolodeon TV show to start the Game!"
-    currentWord.textContent = "Current Word: ";
-    guessedLetters.textContent = "Letters Guessed: ";
-    remainingGuesses.textContent = "Remaining Guesses: ";
-    wins.textContent = "Wins: ";
-    losses.textContent = "Losses: ";
-    for(var j = 0; j < word.length; j++)
-    if (firstTime) {
-        answer[j] = "_ "; 
-  }
+  
+   guessesLeft = 9;
+
+   word = wordBank[Math.floor(Math.random()*wordBank.length)];
+    console.log(word)
+
+    answer = word.split("");
+
+    numBlanks = answer.length;
+    blanks = [];
+    wrongGuess = [];
+
+    
+    for (var i = 0; i < numBlanks; i++){
+    blanks.push("_");}
+
+    console.log(blanks)
+
+
+    document.getElementById("remainingGuess").innerHTML = guessesLeft;
+    document.getElementById("currentWord").innerHTML= blanks.join(" ");
+    document.getElementById("guessedLetters").innerHTML= wrongGuess.join(" ");
+currentword.textContent = "Current Word: " + blanks;
+
 };
 
-function Wrong(){
-    console.log(wrongGuess)
-    guessedLetters.textContent = "Letters Guessed: " + wrongGuess;
-   
-};
-      
-function win(){ 
-    if (answer ===word)
-    answer.toString("");
+
+
+function checkLetters(letter){
+var letterCorrect = false;
+
+for (var i = 0; i < numBlanks; i++){
+   if (word [i]===letter){
+       letterCorrect = true;
+   }
+}
+
+    if(letterCorrect){
+        for (var j = 0; j < numBlanks; j++){
+
+        if (word[j]===letter){
+            blanks[j] = letter;
+        }
+        }
+        console.log(blanks)
+    }
+
+        else {
+            wrongGuess.push(letter);
+            guessesLeft--;
+        }
+}
+
+
+function roundComplete(){
+    document.getElementById("remainingGuess").innerHTML = guessesLeft;
+    document.getElementById("currentWord").innerHTML = blanks.join(" ");
+    document.getElementById("guessedLetters").innerHTML = wrongGuess.join(" ");
+    currentword.textContent = "Current Word: " + blanks;
+
+    
+console.log("wincount: " + winNum + "| loss count: " + loseNum + " |Num Guesses:  " + guessesLeft)
+    if(answer.toString()===blanks.toString()){
         winNum++;
-        wins.textContent = "wins" + winNum;
+        alert("Good job! You won!");
+        wins.textContent = "wins: " + winNum;
         reset();
-    };
 
-function Loss(){
+    }
 
-    if (guessesLeft <= 0){
+    else if (guessesLeft===0){
         loseNum++;
+        alert("Sorry! You lose!");
+        losses.textContent = "Losses: " + loseNum;
         reset();
-    };
-};
+    }
+
+}
+
+reset();
+
+
+
 
 
 
 document.onkeyup = function(event) {
-    gameStart = true;
+    letterGuessed = String.fromCharCode(event.which).toLowerCase();
+    checkLetters(letterGuessed);
+    roundComplete();
+  
 
-    Loss();
-    
-    var yourGuess = event.key
-    remainingGuesses.textContent = "Remaining Guesses: " + guessesLeft;
-    wins.textContent = "Wins: " + winNum;
-    losses.textContent = "Losses: " + loseNum;
 
-    
-    for(var i = 0; i < word.length; i++) {
-        if (word[i] === yourGuess){
-            answer[i] = yourGuess;      
-        }
-       
-
-        else if (answer===word) {
-              win();
-            };
-    };
-
-    if( answer[i]!== yourGuess) {
-        wrongGuess= yourGuess
-        console.log(yourGuess)
-     }
-    if (wrongGuess === yourGuess){
-        guessesLeft--;
-        Wrong();
-
-    firstTime=false;
-    currentWord.textContent = "Current Word: " + answer.join("");
-   
-    };
 
 };
