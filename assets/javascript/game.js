@@ -1,5 +1,5 @@
 
-var wordBank = ["catdog ", "rugrats", "doug", "keenan&kel" , "all_that", "animorphs", "spongebob"];
+var wordBank = ["catdog", "rugrats", "doug", "keenan&kel" , "all that", "animorphs", "spongebob"];
 
 
 var directions = document.getElementById("directions-text");
@@ -26,7 +26,7 @@ var numBlanks = 0;
 
 
 function reset() {
-    document.getElementById("button").innerHTML = "Guess a letter of a 90s Nickolodeon TV show to start the Game!"
+    document.getElementById("header").innerHTML = "Guess a letter of a 90s Nickolodeon TV show to start the Game!"
   
    guessesLeft = 9;
 
@@ -46,10 +46,10 @@ function reset() {
     console.log(blanks)
 
 
-    document.getElementById("remainingGuess").innerHTML = guessesLeft;
+    document.getElementById("remainingGuess").innerHTML = "Remaining Guesses: " + guessesLeft;
     document.getElementById("currentWord").innerHTML= blanks.join(" ");
     document.getElementById("guessedLetters").innerHTML= wrongGuess.join(" ");
-currentword.textContent = "Current Word: " + blanks;
+currentword.textContent = "Current Word: " + blanks.join(" ");
 
 };
 
@@ -82,12 +82,12 @@ for (var i = 0; i < numBlanks; i++){
 
 
 function roundComplete(){
-    document.getElementById("remainingGuess").innerHTML = guessesLeft;
+    document.getElementById("remainingGuess").innerHTML = "Remaining Guesses: " + guessesLeft;
     document.getElementById("currentWord").innerHTML = blanks.join(" ");
     document.getElementById("guessedLetters").innerHTML = wrongGuess.join(" ");
-    currentword.textContent = "Current Word: " + blanks;
+    currentWord.textContent = "Current Word: " + blanks.join(" ");
 
-    
+
 console.log("wincount: " + winNum + "| loss count: " + loseNum + " |Num Guesses:  " + guessesLeft)
     if(answer.toString()===blanks.toString()){
         winNum++;
