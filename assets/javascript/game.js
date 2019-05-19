@@ -49,7 +49,7 @@ function reset() {
     document.getElementById("remainingGuess").innerHTML = "Remaining Guesses: " + guessesLeft;
     document.getElementById("currentWord").innerHTML= blanks.join(" ");
     document.getElementById("guessedLetters").innerHTML= wrongGuess.join(" ");
-currentword.textContent = "Current Word: " + blanks.join(" ");
+    currentword.textContent = "Current Word: " + blanks.join(" ");
 
 };
 
