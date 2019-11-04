@@ -8,5 +8,4 @@
 
 ### Technologies Used: HTML, CSS, Javascript, JQuery
 
-### Creator
--I am the sole creator and owner. @GriffinCriste
+### Creator: I am the sole creator and owner. @GriffinCriste
