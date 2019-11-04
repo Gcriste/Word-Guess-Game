@@ -26,29 +26,35 @@ var numBlanks = 0;
 
 
 function reset() {
+    //Directions
     document.getElementById("header").innerHTML = "Guess a letter of a 90s Nickolodeon TV show to start the Game!"
   
+    //starting number of guesses
    guessesLeft = 9;
 
+
+   //Generates a new word
    word = wordBank[Math.floor(Math.random()*wordBank.length)];
     console.log(word)
 
+
+    //splits the word into string
     answer = word.split("");
 
     numBlanks = answer.length;
     blanks = [];
     wrongGuess = [];
 
-    
+    // making the spaces for the word
     for (var i = 0; i < numBlanks; i++){
     blanks.push("_");}
 
     console.log(blanks)
 
-
+    // showing the html to the page
     document.getElementById("remainingGuess").innerHTML = "Remaining Guesses: " + guessesLeft;
     document.getElementById("currentWord").innerHTML= blanks.join(" ");
-    document.getElementById("guessedLetters").innerHTML= wrongGuess.join(" ");
+    document.getElementById("guessedLetters").innerHTML= "Guessed Letters:   " + wrongGuess.join(", ");
     currentword.textContent = "Current Word: " + blanks.join(" ");
 
 };
@@ -58,12 +64,14 @@ function reset() {
 function checkLetters(letter){
 var letterCorrect = false;
 
+// if the guessed letter matches in the word, then set the letterCorrect to true 
 for (var i = 0; i < numBlanks; i++){
    if (word [i]===letter){
        letterCorrect = true;
    }
 }
 
+    // if the letter is correct then fill in the space with the letter
     if(letterCorrect){
         for (var j = 0; j < numBlanks; j++){
 
@@ -74,9 +82,15 @@ for (var i = 0; i < numBlanks; i++){
         console.log(blanks)
     }
 
+    // if the word is incorrect, push the letter to the wrongGuess array
         else {
-            wrongGuess.push(letter);
-            guessesLeft--;
+            if (wrongGuess.includes(letter)){
+                alert("You have already guessed that letter")
+            }
+            else{
+                wrongGuess.push(letter);
+                guessesLeft--;
+            }
         }
 }
 
@@ -84,7 +98,7 @@ for (var i = 0; i < numBlanks; i++){
 function roundComplete(){
     document.getElementById("remainingGuess").innerHTML = "Remaining Guesses: " + guessesLeft;
     document.getElementById("currentWord").innerHTML = blanks.join(" ");
-    document.getElementById("guessedLetters").innerHTML = wrongGuess.join(" ");
+    document.getElementById("guessedLetters").innerHTML = "Guessed Letters:  " + wrongGuess.join(" ");
     currentWord.textContent = "Current Word: " + blanks.join(" ");
 
 
@@ -112,7 +126,7 @@ reset();
 
 
 
-
+// when you press a key the game starts
 document.onkeyup = function(event) {
     letterGuessed = String.fromCharCode(event.which).toLowerCase();
     checkLetters(letterGuessed);
