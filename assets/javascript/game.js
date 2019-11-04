@@ -105,7 +105,7 @@ function roundComplete(){
 console.log("wincount: " + winNum + "| loss count: " + loseNum + " |Num Guesses:  " + guessesLeft)
     if(answer.toString()===blanks.toString()){
         winNum++;
-        alert("Good job! You won!");
+        alert("Good job! You won! The word was " + word);
         wins.textContent = "wins: " + winNum;
         reset();
 
@@ -113,7 +113,7 @@ console.log("wincount: " + winNum + "| loss count: " + loseNum + " |Num Guesses:
 
     else if (guessesLeft===0){
         loseNum++;
-        alert("Sorry! You lose!");
+        alert("Sorry! You lose! The word was " + word );
         losses.textContent = "Losses: " + loseNum;
         reset();
     }
